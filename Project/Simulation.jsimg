@@ -1,0 +1,1449 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<archive xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Simulation.jsimg" timestamp="Mon Jul 11 15:58:03 CEST 2022" xsi:noNamespaceSchemaLocation="Archive.xsd">
+<sim disableStatisticStop="false" logDecimalSeparator="," logDelimiter=";" logPath="C:\Users\pietr\JMT" logReplaceMode="0" maxEvents="-1" maxSamples="1000000" name="Simulation.jsimg" polling="1.0" xsi:noNamespaceSchemaLocation="SIMmodeldefinition.xsd">
+<userClass name="Write request" priority="0" referenceSource="Source" type="open"/>
+<userClass name="Read request" priority="0" referenceSource="Source" type="open"/>
+<node name="Source">
+<section className="RandomSource">
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServiceStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>0.0125</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>0.0033333333333333335</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="ServiceTunnel"/>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Fork 1">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="ServiceTunnel"/>
+<section className="Fork">
+<parameter classPath="java.lang.Integer" name="jobsPerLink">
+<value>1</value>
+</parameter>
+<parameter classPath="java.lang.Integer" name="block">
+<value>-1</value>
+</parameter>
+<parameter classPath="java.lang.Boolean" name="isSimplifiedFork">
+<value>false</value>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ForkStrategy" name="ForkStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ForkStrategies.CombFork" name="Random Subset">
+<subParameter array="true" classPath="jmt.engine.random.EmpiricalEntry" name="EmpiricalEntry">
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>1</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>2</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>3</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>4</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>5</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>6</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>7</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>8</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>1.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>9</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>10</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ForkStrategies.CombFork" name="Random Subset">
+<subParameter array="true" classPath="jmt.engine.random.EmpiricalEntry" name="EmpiricalEntry">
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>1</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>2</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>3</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>4</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>5</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>1.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>6</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>7</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>8</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>9</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+<subParameter classPath="jmt.engine.random.EmpiricalEntry" name="outUnitProbability">
+<subParameter classPath="java.lang.String" name="Number of Branches">
+<value>10</value>
+</subParameter>
+<subParameter classPath="java.lang.Double" name="probability">
+<value>0.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+</node>
+<node name="Join 1">
+<section className="Join">
+<parameter array="true" classPath="jmt.engine.NetStrategies.JoinStrategy" name="JoinStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.JoinStrategies.GuardJoin" name="Guard">
+<subParameter array="true" classPath="java.lang.String" name="Classes">
+<subParameter classPath="java.lang.String" name="class">
+<value>Write request</value>
+</subParameter>
+<subParameter classPath="java.lang.String" name="class">
+<value>Read request</value>
+</subParameter>
+</subParameter>
+<subParameter array="true" classPath="java.lang.String" name="Numbers">
+<subParameter classPath="java.lang.String" name="required">
+<value>8</value>
+</subParameter>
+<subParameter classPath="java.lang.String" name="required">
+<value>0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.JoinStrategies.GuardJoin" name="Guard">
+<subParameter array="true" classPath="java.lang.String" name="Classes">
+<subParameter classPath="java.lang.String" name="class">
+<value>Write request</value>
+</subParameter>
+<subParameter classPath="java.lang.String" name="class">
+<value>Read request</value>
+</subParameter>
+</subParameter>
+<subParameter array="true" classPath="java.lang.String" name="Numbers">
+<subParameter classPath="java.lang.String" name="required">
+<value>0</value>
+</subParameter>
+<subParameter classPath="java.lang.String" name="required">
+<value>5</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="ServiceTunnel"/>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Sink">
+<section className="JobSink"/>
+</node>
+<node name="Disk 1">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 2">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 5">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 4">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 6">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 3">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988011998</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 7">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 9">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 10">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Disk 8">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Erlang" name="Erlang"/>
+<subParameter classPath="jmt.engine.random.ErlangPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="alpha">
+<value>11.988011988012</value>
+</subParameter>
+<subParameter classPath="java.lang.Long" name="r">
+<value>12</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<node name="Controller">
+<section className="Queue">
+<parameter classPath="java.lang.Integer" name="size">
+<value>-1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.String" name="dropStrategies">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.String" name="dropStrategy">
+<value>drop</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="retrialDistributions"/>
+<parameter classPath="jmt.engine.NetStrategies.QueueGetStrategies.FCFSstrategy" name="FCFSstrategy"/>
+<parameter array="true" classPath="jmt.engine.NetStrategies.QueuePutStrategy" name="QueuePutStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.QueuePutStrategies.TailStrategy" name="TailStrategy"/>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ImpatienceStrategies.Impatience" name="Impatience">
+<value>null</value>
+</subParameter>
+</parameter>
+</section>
+<section className="Server">
+<parameter classPath="java.lang.Integer" name="maxJobs">
+<value>1</value>
+</parameter>
+<parameter array="true" classPath="java.lang.Integer" name="numberOfVisits">
+<refClass>Write request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="java.lang.Integer" name="numberOfVisits">
+<value>1</value>
+</subParameter>
+</parameter>
+<parameter array="true" classPath="jmt.engine.NetStrategies.ServiceStrategy" name="ServerStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>210.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.ServiceStrategies.ServiceTimeStrategy" name="ServiceTimeStrategy">
+<subParameter classPath="jmt.engine.random.Exponential" name="Exponential"/>
+<subParameter classPath="jmt.engine.random.ExponentialPar" name="distrPar">
+<subParameter classPath="java.lang.Double" name="lambda">
+<value>790.0</value>
+</subParameter>
+</subParameter>
+</subParameter>
+</parameter>
+</section>
+<section className="Router">
+<parameter array="true" classPath="jmt.engine.NetStrategies.RoutingStrategy" name="RoutingStrategy">
+<refClass>Write request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+<refClass>Read request</refClass>
+<subParameter classPath="jmt.engine.NetStrategies.RoutingStrategies.RandomStrategy" name="Random"/>
+</parameter>
+</section>
+</node>
+<measure alpha="0.01" name="Write request_System Response Time" nodeType="" precision="0.03" referenceNode="" referenceUserClass="Write request" type="System Response Time" verbose="false"/>
+<measure alpha="0.01" name="Read request_System Response Time" nodeType="" precision="0.03" referenceNode="" referenceUserClass="Read request" type="System Response Time" verbose="false"/>
+<measure alpha="0.01" name="Disk 1_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 1" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 1_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 1" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 2_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 2" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 2_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 2" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 3_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 3" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 3_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 3" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 4_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 4" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 4_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 4" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 5_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 5" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 5_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 5" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 6_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 6" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 6_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 6" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 7_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 7" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 7_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 7" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 8_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 8" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 8_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 8" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 9_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 9" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 9_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 9" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 10_Write request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 10" referenceUserClass="Write request" type="Utilization" verbose="false"/>
+<measure alpha="0.01" name="Disk 10_Read request_Utilization" nodeType="station" precision="0.03" referenceNode="Disk 10" referenceUserClass="Read request" type="Utilization" verbose="false"/>
+<connection source="Source" target="Controller"/>
+<connection source="Fork 1" target="Disk 1"/>
+<connection source="Fork 1" target="Disk 2"/>
+<connection source="Fork 1" target="Disk 5"/>
+<connection source="Fork 1" target="Disk 4"/>
+<connection source="Fork 1" target="Disk 6"/>
+<connection source="Fork 1" target="Disk 3"/>
+<connection source="Fork 1" target="Disk 7"/>
+<connection source="Fork 1" target="Disk 9"/>
+<connection source="Fork 1" target="Disk 10"/>
+<connection source="Fork 1" target="Disk 8"/>
+<connection source="Join 1" target="Sink"/>
+<connection source="Disk 1" target="Join 1"/>
+<connection source="Disk 2" target="Join 1"/>
+<connection source="Disk 5" target="Join 1"/>
+<connection source="Disk 4" target="Join 1"/>
+<connection source="Disk 6" target="Join 1"/>
+<connection source="Disk 3" target="Join 1"/>
+<connection source="Disk 7" target="Join 1"/>
+<connection source="Disk 9" target="Join 1"/>
+<connection source="Disk 10" target="Join 1"/>
+<connection source="Disk 8" target="Join 1"/>
+<connection source="Controller" target="Fork 1"/>
+</sim>
+<jmodel xsi:noNamespaceSchemaLocation="JModelGUI.xsd">
+<userClass color="#FF0000FF" name="Write request"/>
+<userClass color="#FFFF0000" name="Read request"/>
+<station name="Source">
+<position angle="0.0" rotate="false" x="32.0" y="298.0"/>
+</station>
+<station name="Fork 1">
+<position angle="0.0" rotate="false" x="285.0" y="298.0"/>
+</station>
+<station name="Join 1">
+<position angle="0.0" rotate="false" x="763.0" y="297.0"/>
+</station>
+<station name="Sink">
+<position angle="0.0" rotate="false" x="879.0" y="297.0"/>
+</station>
+<station name="Disk 1">
+<position angle="0.0" rotate="false" x="498.0" y="7.0"/>
+</station>
+<station name="Disk 2">
+<position angle="0.0" rotate="false" x="501.0" y="78.0"/>
+</station>
+<station name="Disk 5">
+<position angle="0.0" rotate="false" x="500.0" y="291.0"/>
+</station>
+<station name="Disk 4">
+<position angle="0.0" rotate="false" x="499.0" y="221.0"/>
+</station>
+<station name="Disk 6">
+<position angle="0.0" rotate="false" x="500.0" y="359.0"/>
+</station>
+<station name="Disk 3">
+<position angle="0.0" rotate="false" x="500.0" y="152.0"/>
+</station>
+<station name="Disk 7">
+<position angle="0.0" rotate="false" x="499.0" y="429.0"/>
+</station>
+<station name="Disk 9">
+<position angle="0.0" rotate="false" x="500.0" y="572.0"/>
+</station>
+<station name="Disk 10">
+<position angle="0.0" rotate="false" x="502.0" y="645.0"/>
+</station>
+<station name="Disk 8">
+<position angle="0.0" rotate="false" x="500.0" y="501.0"/>
+</station>
+<station name="Controller">
+<position angle="0.0" rotate="false" x="129.0" y="295.0"/>
+</station>
+</jmodel>
+<results elapsedTime="6206" logDecimalSeparator="," logDelimiter=";" pollingInterval="1.0" xsi:noNamespaceSchemaLocation="Results.xsd">
+<measure alpha="0.99" analyzedSamples="15360" discardedSamples="120" finalValue="1.461218463730581" name="Write request_System Response Time" nodeType="" precision="0.03" referenceClass="Write request" referenceStation="" state="1" type="8">
+<sample lastIntervalAvgValue="1.4625653851060147" lowerBound="1.4175990218087613" meanValue="1.461218463730581" simulationTime="1234808.611105721" upperBound="1.5048379056524006"/>
+<sample lastIntervalAvgValue="1.4625653851060147" lowerBound="1.4175990218087613" meanValue="1.461218463730581" simulationTime="1234808.611105721" upperBound="1.5048379056524006"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="30720" discardedSamples="135" finalValue="1.3669986073243714" name="Read request_System Response Time" nodeType="" precision="0.03" referenceClass="Read request" referenceStation="" state="1" type="8">
+<sample lastIntervalAvgValue="1.3647457531076141" lowerBound="1.2311251196175679" meanValue="1.3653359975794563" simulationTime="1566553.8110620638" upperBound="1.4995468755413448"/>
+<sample lastIntervalAvgValue="1.3677323772392156" lowerBound="1.3247980606245193" meanValue="1.367483460994269" simulationTime="5816022.692459038" upperBound="1.4101688613640186"/>
+<sample lastIntervalAvgValue="1.36595287654781" lowerBound="1.3278425028192287" meanValue="1.3669986073243714" simulationTime="9210611.695878446" upperBound="1.4061547118295141"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="71680" discardedSamples="1040" finalValue="0.009999801295648217" name="Disk 1_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 1" state="1" type="4">
+<sample lastIntervalAvgValue="0.009954120762651635" lowerBound="0.009374446828279905" meanValue="0.010080533419311765" simulationTime="1566629.7031058522" upperBound="0.010786620010343625"/>
+<sample lastIntervalAvgValue="0.009999119395" lowerBound="0.00975976610945901" meanValue="0.009999801295648217" simulationTime="3659474.4757426726" upperBound="0.010239836481837425"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="81920" discardedSamples="30" finalValue="0.0016772168930867136" name="Disk 1_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 1" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016510449345047266" lowerBound="0.0013048190119808374" meanValue="0.0016298301734088982" simulationTime="1566553.0404984236" upperBound="0.001954841334836959"/>
+<sample lastIntervalAvgValue="0.0016831820460352998" lowerBound="0.001541222670625728" meanValue="0.0016374329566875205" simulationTime="5815973.260142538" upperBound="0.001733643242749313"/>
+<sample lastIntervalAvgValue="0.001652556171278876" lowerBound="0.0015997715865472457" meanValue="0.001685002539889903" simulationTime="9868687.205400465" upperBound="0.0017702334932325604"/>
+<sample lastIntervalAvgValue="0.0016649413823233894" lowerBound="0.0016162305238990847" meanValue="0.0016663094555184404" simulationTime="1.3914992628585072E7" upperBound="0.0017163883871377961"/>
+<sample lastIntervalAvgValue="0.0016681705365496318" lowerBound="0.0016162305238990847" meanValue="0.0016663094555184404" simulationTime="1.8041620503836103E7" upperBound="0.0017163883871377961"/>
+<sample lastIntervalAvgValue="0.0016953539780415223" lowerBound="0.0016162305238990847" meanValue="0.0016663094555184404" simulationTime="2.212702650788586E7" upperBound="0.0017163883871377961"/>
+<sample lastIntervalAvgValue="0.001689113807102395" lowerBound="0.0016482807046114755" meanValue="0.0016772168930867136" simulationTime="2.4526643822702177E7" upperBound="0.0017061530815619516"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="110" finalValue="0.009945822604364957" name="Disk 2_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 2" state="1" type="4">
+<sample lastIntervalAvgValue="0.009919956336601511" lowerBound="0.009683424293871193" meanValue="0.01014055717591784" simulationTime="1566537.5719316674" upperBound="0.010597690057964489"/>
+<sample lastIntervalAvgValue="0.009847377827735926" lowerBound="0.009725652017362387" meanValue="0.009945822604364957" simulationTime="2091065.9603964016" upperBound="0.010165993191367528"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="90" finalValue="0.0016520352592192952" name="Disk 2_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 2" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016822840735583613" lowerBound="0.0014695647020351898" meanValue="0.001679257037724393" simulationTime="1566429.129105626" upperBound="0.0018889493734135963"/>
+<sample lastIntervalAvgValue="0.001658619930524909" lowerBound="0.0015911092371924103" meanValue="0.0016877043100330658" simulationTime="5816149.774464463" upperBound="0.0017842993828737213"/>
+<sample lastIntervalAvgValue="0.0016358229173210291" lowerBound="0.00156048905995395" meanValue="0.001646987945852446" simulationTime="9868687.366235588" upperBound="0.001733486831750942"/>
+<sample lastIntervalAvgValue="0.0016716912098780107" lowerBound="0.0016050578753483635" meanValue="0.0016520352592192952" simulationTime="1.2422593542319223E7" upperBound="0.0016990126430902269"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61200" discardedSamples="60" finalValue="0.010060130385958222" name="Disk 3_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 3" state="1" type="4">
+<sample lastIntervalAvgValue="0.009935381886946785" lowerBound="0.009472974624411544" meanValue="0.009953068894864787" simulationTime="1566629.692681574" upperBound="0.01043316316531803"/>
+<sample lastIntervalAvgValue="0.010146654221348899" lowerBound="0.009835976891368281" meanValue="0.010060130385958222" simulationTime="3067808.968863459" upperBound="0.010284283880548164"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="100" finalValue="0.0016777975649372413" name="Disk 3_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 3" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016568507443068408" lowerBound="9.353401618895014E-4" meanValue="0.0016031509346908458" simulationTime="1566553.4078550544" upperBound="0.00227096170749219"/>
+<sample lastIntervalAvgValue="0.0016893488905030778" lowerBound="0.001547104465884274" meanValue="0.0016620903138783545" simulationTime="5815985.001487495" upperBound="0.001777076161872435"/>
+<sample lastIntervalAvgValue="0.0016613044970344897" lowerBound="0.0015943538403257144" meanValue="0.0016777575029784352" simulationTime="9868599.676459327" upperBound="0.001761161165631156"/>
+<sample lastIntervalAvgValue="0.0016976122210976545" lowerBound="0.0016348019268879299" meanValue="0.0016777975649372413" simulationTime="1.226833214844624E7" upperBound="0.0017207932029865527"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="225" finalValue="0.010029607800200376" name="Disk 4_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 4" state="1" type="4">
+<sample lastIntervalAvgValue="0.010017417287501742" lowerBound="0.009461240716817608" meanValue="0.010002900318208222" simulationTime="1566630.1606795646" upperBound="0.010544559919598837"/>
+<sample lastIntervalAvgValue="0.010049303621258165" lowerBound="0.00978627938674457" meanValue="0.010029607800200376" simulationTime="3101175.0659288443" upperBound="0.010272936213656181"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="195" finalValue="0.0016535503087651826" name="Disk 4_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 4" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016321390904666542" lowerBound="0.001157118296506535" meanValue="0.00159560437869817" simulationTime="1566409.0832213287" upperBound="0.002034090460889805"/>
+<sample lastIntervalAvgValue="0.0016798055254671612" lowerBound="0.0015793425075565817" meanValue="0.0016714731547837407" simulationTime="5816022.692459038" upperBound="0.0017636038020108996"/>
+<sample lastIntervalAvgValue="0.001657598277774175" lowerBound="0.001599206734700129" meanValue="0.0016653030554916145" simulationTime="9868680.115035104" upperBound="0.0017313993762831"/>
+<sample lastIntervalAvgValue="0.0016349027052293653" lowerBound="0.001599206734700129" meanValue="0.0016653030554916145" simulationTime="1.3915349571786935E7" upperBound="0.0017313993762831"/>
+<sample lastIntervalAvgValue="0.0016613774107824173" lowerBound="0.001599206734700129" meanValue="0.0016653030554916145" simulationTime="1.804162063368408E7" upperBound="0.0017313993762831"/>
+<sample lastIntervalAvgValue="0.0016071100427789149" lowerBound="0.0016203255882844849" meanValue="0.0016535503087651826" simulationTime="1.8645316774181645E7" upperBound="0.0016867750292458804"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="46080" discardedSamples="695" finalValue="0.010039412082913693" name="Disk 5_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 5" state="1" type="4">
+<sample lastIntervalAvgValue="0.009956534239308394" lowerBound="0.009630291091374461" meanValue="0.010096582915866743" simulationTime="1566630.1415198622" upperBound="0.010562874740359026"/>
+<sample lastIntervalAvgValue="0.010149169067478642" lowerBound="0.009782454340073722" meanValue="0.010039412082913693" simulationTime="2349707.5532520264" upperBound="0.010296369825753663"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="245" finalValue="0.0016693985527893333" name="Disk 5_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 5" state="1" type="4">
+<sample lastIntervalAvgValue="0.001676327933843327" lowerBound="0.0013441787730635" meanValue="0.0016274573981940454" simulationTime="1566374.3959957184" upperBound="0.0019107360233245906"/>
+<sample lastIntervalAvgValue="0.0016938097722044958" lowerBound="0.0016078800250325979" meanValue="0.0017024633073757422" simulationTime="5815972.769092796" upperBound="0.0017970465897188866"/>
+<sample lastIntervalAvgValue="0.0016375618907338723" lowerBound="0.0015953715658637545" meanValue="0.0016660499962724406" simulationTime="9868267.035076654" upperBound="0.0017367284266811267"/>
+<sample lastIntervalAvgValue="0.0016659335206739379" lowerBound="0.0015953715658637545" meanValue="0.0016660499962724406" simulationTime="1.3915349255607896E7" upperBound="0.0017367284266811267"/>
+<sample lastIntervalAvgValue="0.0016918369137595513" lowerBound="0.0015953715658637545" meanValue="0.0016660499962724406" simulationTime="1.804193503107623E7" upperBound="0.0017367284266811267"/>
+<sample lastIntervalAvgValue="0.0016680433343293885" lowerBound="0.0016313151217059634" meanValue="0.0016693985527893333" simulationTime="1.8479400525147278E7" upperBound="0.0017074819838727032"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="100" finalValue="0.010067426713666292" name="Disk 6_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 6" state="1" type="4">
+<sample lastIntervalAvgValue="0.009985904381489495" lowerBound="0.00946439295900322" meanValue="0.009970817495850652" simulationTime="1566537.7494658593" upperBound="0.010477242032698085"/>
+<sample lastIntervalAvgValue="0.010128713817545624" lowerBound="0.0098807152253252" meanValue="0.010067426713666292" simulationTime="3077704.068859758" upperBound="0.010254138202007384"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="200" finalValue="0.0016745941452789637" name="Disk 6_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 6" state="1" type="4">
+<sample lastIntervalAvgValue="0.0017068366295438207" lowerBound="0.0013551409933409433" meanValue="0.0017078488104067312" simulationTime="1566429.4013968473" upperBound="0.002060556627472519"/>
+<sample lastIntervalAvgValue="0.0017124415959539699" lowerBound="0.0016255117306024545" meanValue="0.0017144896865252468" simulationTime="5816149.774464463" upperBound="0.0018034676424480392"/>
+<sample lastIntervalAvgValue="0.0016411575041045355" lowerBound="0.0016128491404692798" meanValue="0.0016841090010469978" simulationTime="9868680.219628677" upperBound="0.0017553688616247158"/>
+<sample lastIntervalAvgValue="0.0016859773085812246" lowerBound="0.0016128491404692798" meanValue="0.0016841090010469978" simulationTime="1.3915349690579461E7" upperBound="0.0017553688616247158"/>
+<sample lastIntervalAvgValue="0.0016742939461149764" lowerBound="0.0016128491404692798" meanValue="0.0016841090010469978" simulationTime="1.8041935001857057E7" upperBound="0.0017553688616247158"/>
+<sample lastIntervalAvgValue="0.0016310832842746335" lowerBound="0.001637355189980194" meanValue="0.0016745941452789637" simulationTime="1.836029102203749E7" upperBound="0.0017118331005777335"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="300" finalValue="0.009968761980079245" name="Disk 7_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 7" state="1" type="4">
+<sample lastIntervalAvgValue="0.009943993499585019" lowerBound="0.00962803058801493" meanValue="0.010116636745210296" simulationTime="1566629.8019635421" upperBound="0.010605242902405663"/>
+<sample lastIntervalAvgValue="0.009979160036858978" lowerBound="0.009721880564393489" meanValue="0.009968761980079245" simulationTime="2090695.5854735884" upperBound="0.010215643395765"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="220" finalValue="0.001671290644221162" name="Disk 7_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 7" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016563536856543948" lowerBound="0.0014285333827905647" meanValue="0.0016416392420247781" simulationTime="1566553.3601653832" upperBound="0.0018547451012589915"/>
+<sample lastIntervalAvgValue="0.0016888719910068697" lowerBound="0.0016068312980795014" meanValue="0.00168676053325835" simulationTime="5816022.440462394" upperBound="0.0017666897684371987"/>
+<sample lastIntervalAvgValue="0.0016695296440494096" lowerBound="0.0016102703837689528" meanValue="0.0016783494848348736" simulationTime="9868687.114315705" upperBound="0.0017464285859007944"/>
+<sample lastIntervalAvgValue="0.0016702743608573215" lowerBound="0.0016102703837689528" meanValue="0.0016783494848348736" simulationTime="1.3915349345610913E7" upperBound="0.0017464285859007944"/>
+<sample lastIntervalAvgValue="0.0016712470445821755" lowerBound="0.0016102703837689528" meanValue="0.0016783494848348736" simulationTime="1.804193582357473E7" upperBound="0.0017464285859007944"/>
+<sample lastIntervalAvgValue="0.0016085668750035278" lowerBound="0.0016359646999747352" meanValue="0.001671290644221162" simulationTime="1.8453784235356204E7" upperBound="0.0017066165884675889"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="230" finalValue="0.01006434299554022" name="Disk 8_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 8" state="1" type="4">
+<sample lastIntervalAvgValue="0.010051946744346276" lowerBound="0.009569898756291129" meanValue="0.010041370347881346" simulationTime="1566629.7153114898" upperBound="0.010512841939471563"/>
+<sample lastIntervalAvgValue="0.010077233130553448" lowerBound="0.00982619129811187" meanValue="0.01006434299554022" simulationTime="3084402.506714048" upperBound="0.01030249469296857"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="85" finalValue="0.00167380300683065" name="Disk 8_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 8" state="1" type="4">
+<sample lastIntervalAvgValue="0.001680845403378662" lowerBound="0.0014056269543227644" meanValue="0.0016707315475611554" simulationTime="1566429.397209186" upperBound="0.0019358361407995465"/>
+<sample lastIntervalAvgValue="0.001697281656601144" lowerBound="0.0015382195771634273" meanValue="0.0016771066422173798" simulationTime="5816149.774464463" upperBound="0.0018159937072713323"/>
+<sample lastIntervalAvgValue="0.0016441066259655728" lowerBound="0.0016033219608553961" meanValue="0.001694725929066285" simulationTime="9868687.71417027" upperBound="0.001786129897277174"/>
+<sample lastIntervalAvgValue="0.0016816976136711083" lowerBound="0.0016308578278007473" meanValue="0.00167380300683065" simulationTime="1.2293552497770147E7" upperBound="0.0017167481858605526"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="80" finalValue="0.010028508164640172" name="Disk 9_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 9" state="1" type="4">
+<sample lastIntervalAvgValue="0.009998146111860921" lowerBound="0.009463487440491254" meanValue="0.010000097163942488" simulationTime="1566630.2770199291" upperBound="0.01053670688739372"/>
+<sample lastIntervalAvgValue="0.01005560354099259" lowerBound="0.009785059584294832" meanValue="0.010028508164640172" simulationTime="3089185.63553361" upperBound="0.010271956744985511"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="80" finalValue="0.0016846774729630458" name="Disk 9_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 9" state="1" type="4">
+<sample lastIntervalAvgValue="0.001660253687915592" lowerBound="0.001246600759592247" meanValue="0.0016413593099376944" simulationTime="1566553.8110620638" upperBound="0.002036117860283142"/>
+<sample lastIntervalAvgValue="0.001690221291987169" lowerBound="0.0015749522503119206" meanValue="0.0016624626326012311" simulationTime="5816150.546557054" upperBound="0.0017499730148905416"/>
+<sample lastIntervalAvgValue="0.0016696666165190545" lowerBound="0.0015841650803004527" meanValue="0.0016824902162009478" simulationTime="9868680.712135179" upperBound="0.0017808153521014429"/>
+<sample lastIntervalAvgValue="0.0016965805784918588" lowerBound="0.0016360401374535887" meanValue="0.0016846774729630458" simulationTime="1.2203200159362892E7" upperBound="0.0017333148084725028"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="61440" discardedSamples="100" finalValue="0.009989205646585786" name="Disk 10_Write request_Utilization" nodeType="station" precision="0.03" referenceClass="Write request" referenceStation="Disk 10" state="1" type="4">
+<sample lastIntervalAvgValue="0.009831461872793733" lowerBound="0.009490992965635239" meanValue="0.009940968563884474" simulationTime="1566629.8719235542" upperBound="0.010390944162133708"/>
+<sample lastIntervalAvgValue="0.01012223889539618" lowerBound="0.009733046019198863" meanValue="0.009989205646585786" simulationTime="3095784.735680378" upperBound="0.010245365273972708"/>
+</measure>
+<measure alpha="0.99" analyzedSamples="40960" discardedSamples="75" finalValue="0.0016818152133506012" name="Disk 10_Read request_Utilization" nodeType="station" precision="0.03" referenceClass="Read request" referenceStation="Disk 10" state="1" type="4">
+<sample lastIntervalAvgValue="0.0016850694415742069" lowerBound="0.001529738232225831" meanValue="0.0016925747332939586" simulationTime="1566553.5111095286" upperBound="0.0018554112343620863"/>
+<sample lastIntervalAvgValue="0.0016999018234611577" lowerBound="0.0015860229215253453" meanValue="0.0016653640316484938" simulationTime="5816149.774464463" upperBound="0.0017447051417716424"/>
+<sample lastIntervalAvgValue="0.001677385531985594" lowerBound="0.0016380759990180613" meanValue="0.001710571313967443" simulationTime="9868687.363509892" upperBound="0.0017830666289168245"/>
+<sample lastIntervalAvgValue="0.0016450110288027495" lowerBound="0.0016373714986702992" meanValue="0.0016818152133506012" simulationTime="1.2233397961123357E7" upperBound="0.0017262589280309033"/>
+</measure>
+</results>
+</archive>
